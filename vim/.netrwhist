@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/home/utkarshn/rahul/btl2/utils/read_write_block'
+let g:netrw_dirhist_2='/home/utkarshn/cisco/btl2/src'
+let g:netrw_dirhist_3='/home/utkarshn/rahul/btl2/src/mlp_protocol'
+let g:netrw_dirhist_4='/home/utkarshn/wb_page/btl2/src/mlp'
+let g:netrw_dirhist_5='/home/utkarshn/5520'
+let g:netrw_dirhist_6='/usr/src/kernels/2.6.32-431.el6.x86_64'
+let g:netrw_dirhist_7='/usr/src/kernels/2.6.32-431.el6.x86_64/include'
+let g:netrw_dirhist_8='/usr/src/kernels/2.6.32-431.el6.x86_64/include/linux'
+let g:netrw_dirhist_9='/home/utkarshn/eudyptula/Challenge1'
