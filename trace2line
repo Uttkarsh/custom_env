@@ -1,0 +1,41 @@
+#!/bin/env bash
+
+# Usage:
+# sh trace2line.sh <function_name+offset> <module_name>
+# sh trace2line.sh kernel_init+0x35/0xa0 simple1.ko
+#
+# TODO: 
+#       Testing with big modules.
+#       Error handling in all steps.
+
+# 1. Get module name
+mod_name=$2
+
+# 2. Get function name 
+code_address=$1
+fun_name=`echo $code_address | cut -d '+' -f 1`
+echo "Function: $fun_name"
+
+# 3. Get function's base address from objdump
+dump_file="$mod_name.dmp"
+objdump -Sl $mod_name > $dump_file
+base_addr=`grep "^[0-9a-fA-F]*\ <$fun_name" $dump_file | cut -d ' ' -f 1`
+base_addr="0x$base_addr" #Convert to hex
+echo "Base address: $base_addr"
+
+# 4. Get trace-offset address from first parameter
+full_addr=`echo $code_address | cut -d '+' -f 2`
+offset=`echo $full_addr | cut -d '/' -f 1`
+echo "Offset: $offset"
+
+# 4. Add function's base address and offset address
+line_addr=`printf '%x' $(($base_addr + $offset))`
+echo "Line address(Base+Offset): $line_addr"
+
+# 5. convert hex_addr to line number in file
+file=`addr2line -e $mod_name $line_addr | sed  's/:/ \+/' `
+echo "addr2line -e $mod_name $line_addr"
+
+# To open file in vim when you are damn sure it works perfectly.
+echo $file
+vim $file
